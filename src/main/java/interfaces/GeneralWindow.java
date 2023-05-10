@@ -1,25 +1,31 @@
 package interfaces;
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+
 import javax.swing.JFrame;
 
-public class GeneralWindow extends JFrame{
-	
+public class GeneralWindow extends JFrame {
+
 	public GeneralWindow() {
-		this.setSize(1920,1080);
 		this.setTitle("Eternal Ashes");
+		this.setContentPane(new MainMenuWindow(this));
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setVisible(true);
-	}
-	
-	/*public void cambiarAPantalla(Class<?> clase) {
-		this.getContentPane().setVisible(false);
-		if(clase.equals(PantallaLogin.class)) {
-			this.setContentPane(new PantallaLogin(this));
-		} else if(clase.equals(PantallaRegistro.class)) {
-			this.setContentPane(new PantallaRegistro(this));
-		}
-		this.getContentPane().setVisible(true);
-	}*/
-	
+
+		// Obtener la resolución de pantalla
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        int width = gd.getDisplayMode().getWidth();
+        int height = gd.getDisplayMode().getHeight();
+
+        // Establecer el tamaño y la posición de la ventana
+        this.setSize(width, height);
+        this.setLocation(0, 0);
+
+        // Establecer la ventana en modo pantalla completa
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        // Mostrar la ventana
+        this.setVisible(true);
+    }
 }
