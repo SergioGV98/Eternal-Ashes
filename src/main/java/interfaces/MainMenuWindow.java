@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainMenuWindow extends JPanel {
 
@@ -19,10 +21,16 @@ public class MainMenuWindow extends JPanel {
         JLabel titleMainMenu = new JLabel("Eternal Ashes");
         titleMainMenu.setForeground(new Color(255, 255, 255));
         titleMainMenu.setFont(new Font("HYWenHei-85W", Font.PLAIN, 80));
-        titleMainMenu.setBounds(610, 31, 638, 138);
+        titleMainMenu.setBounds(570, 32, 638, 138);
         add(titleMainMenu);
         
         JLabel backgroundMainMenu = new JLabel("");
+        backgroundMainMenu.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		window.cambiarPantalla(LoginMenuWindow.class);
+        	}
+        });
 		backgroundMainMenu.setHorizontalTextPosition(SwingConstants.CENTER);
 		backgroundMainMenu.setHorizontalAlignment(SwingConstants.CENTER);
 		backgroundMainMenu.setIcon(new ImageIcon("images\\mainwallpaper.jpg"));
