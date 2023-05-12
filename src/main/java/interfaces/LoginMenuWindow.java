@@ -100,7 +100,7 @@ public class LoginMenuWindow extends JPanel {
 				try {
 					Usuario usuario = new Usuario(textFieldUser.getText(), passwordString);
 					if (usuario != null) {
-						window.cambiarPantalla(MainMenuWindow.class);
+						window.cambiarPantalla(IntroWindow.class);
 					}
 				} catch (SQLException | UsuarioNoExisteExceptions e1) {
 					e1.printStackTrace();

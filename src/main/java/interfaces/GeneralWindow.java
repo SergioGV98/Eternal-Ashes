@@ -22,6 +22,10 @@ public class GeneralWindow extends JFrame {
 			this.setContentPane(new LoginMenuWindow(this));
 		} else if (clase.equals(RegistrarseWindow.class)) {
 			this.setContentPane(new RegistrarseWindow(this));
+		} else if (clase.equals(IntroWindow.class)) {
+			this.setContentPane(new IntroWindow(this));
+		} else if(clase.equals(GameWindow.class)) {
+			this.setContentPane(new GameWindow(this));
 		}
 		this.getContentPane().setVisible(true);
 	}
