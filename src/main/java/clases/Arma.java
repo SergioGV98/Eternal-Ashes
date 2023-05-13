@@ -2,9 +2,9 @@ package clases;
 
 public class Arma extends ElementoConNombre{
 	
-	private short daño;
+	private int daño;
 
-	public Arma(String nombre, short daño) {
+	public Arma(String nombre, int daño) {
 		super(nombre);
 		this.daño = daño;
 	}

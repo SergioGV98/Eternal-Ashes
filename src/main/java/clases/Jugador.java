@@ -8,7 +8,19 @@ public class Jugador extends ElementoVivo{
 		super(nombre, vida);
 		this.arma = arma;
 	}
-	
+
+	public Arma getArma() {
+		return arma;
+	}
+
+	public void setArma(Arma arma) {
+		this.arma = arma;
+	}
+
+	@Override
+	public String toString() {
+		return "Arma=" + arma;
+	}
 	
 
 }

@@ -4,8 +4,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
+
+import clases.Arma;
+import clases.Jugador;
+import exceptions.NombreConNumeroException;
+import exceptions.NombreLargoException;
+import utils.Config;
+import utils.DAO;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -13,11 +21,18 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+
+import javax.swing.JTextField;
 
 public class IntroWindow extends JPanel {
 
 	private GeneralWindow window;
-	private Timer timer;
+	private JTextField textFieldName;
+	private Jugador jugador;
 
 	public IntroWindow(GeneralWindow w) {
 		setPreferredSize(new Dimension(1650, 1000));
@@ -34,7 +49,7 @@ public class IntroWindow extends JPanel {
 		historiaIntro.setFont(new Font("HYWenHei-85W", Font.PLAIN, 20));
 		historiaIntro.setHorizontalAlignment(SwingConstants.CENTER);
 		historiaIntro.setBounds(300, 65, 1112, 234);
-		historiaIntro.setVisible(false);
+		historiaIntro.setVisible(true);
 		add(historiaIntro);
 
 		JLabel historiaIntro2 = new JLabel(
@@ -68,58 +83,87 @@ public class IntroWindow extends JPanel {
 		historiaIntro4.setBounds(427, 728, 832, 234);
 		historiaIntro4.setVisible(false);
 		add(historiaIntro4);
-		
-		JButton continuar = new JButton("Continuar");
-		continuar.addMouseListener(new MouseAdapter() {
+
+		JLabel nameLabel = new JLabel("¿Recuerdas tu nombre, eterno?");
+		nameLabel.setFont(new Font("HYWenHei-85W", Font.PLAIN, 50));
+		nameLabel.setBounds(400, 178, 1112, 138);
+		nameLabel.setVisible(false);
+		add(nameLabel);
+
+		textFieldName = new JTextField();
+		textFieldName.setFont(new Font("HYWenHei-85W", Font.PLAIN, 20));
+		textFieldName.setBounds(506, 455, 607, 60);
+		textFieldName.setVisible(false);
+		add(textFieldName);
+		textFieldName.setColumns(10);
+
+		JLabel reglasLabel = new JLabel(
+				"<html>Por favor, ten en cuenta que el uso de nombres sin números<br> y de una longitud no mayor a 15 caracteres.<html>");
+		reglasLabel.setForeground(new Color(255, 0, 0));
+		reglasLabel.setFont(new Font("HYWenHei-85W", Font.PLAIN, 15));
+		reglasLabel.setBounds(516, 526, 600, 60);
+		reglasLabel.setVisible(false);
+		add(reglasLabel);
+
+		JButton continuarButton = new JButton("Continuar");
+		continuarButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				LinkedHashSet<String> consulta = new LinkedHashSet<String>();
+				consulta.add("nombre");
+				consulta.add("daño");
+				HashMap<String, Object> restricciones = new HashMap<String, Object>();
+				restricciones.put("nombre", "Garrote oxidado");
+				ArrayList<Object> informacion = null;
+				try {
+					informacion = DAO.consultar("armas", restricciones, consulta);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				if (Config.verboseMode) {
+					System.out.println(informacion);
+				}
+				String nombre = textFieldName.getText();
+				Arma armaInicial = new Arma((String) informacion.get(0), (int) informacion.get(1));
+				jugador = new Jugador(nombre, (short) 100, armaInicial);
 				window.cambiarPantalla(GameWindow.class);
 			}
 		});
-		continuar.setFont(new Font("HYWenHei-85W", Font.PLAIN, 18));
-		continuar.setBounds(1361, 869, 236, 50);
-		continuar.setVisible(false);
-		add(continuar);
+		continuarButton.setFont(new Font("HYWenHei-85W", Font.PLAIN, 20));
+		continuarButton.setBounds(655, 650, 308, 60);
+		continuarButton.setEnabled(false);
+		continuarButton.setVisible(false);
+		add(continuarButton);
 
-		JLabel[] labelsHistoria = {historiaIntro, historiaIntro2, historiaIntro3, historiaIntro4};
-		
-		timer = new Timer(1000, new ActionListener() {
+		JLabel[] etiquetas = { historiaIntro, historiaIntro2, historiaIntro3, historiaIntro4 };
+
+		JButton siguienteButton = new JButton("Siguiente");
+		siguienteButton.addActionListener(new ActionListener() {
+			byte contador = 0;
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				historiaIntro.setVisible(true);
-			}
-		});
-		timer.start();
-
-		timer = new Timer(5000, new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				historiaIntro2.setVisible(true);
-
-			}
-		});
-
-		timer.start();
-		timer = new Timer(10000, new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				historiaIntro3.setVisible(true);
+				if (contador < etiquetas.length - 1) {
+					etiquetas[contador].setVisible(false);
+					contador++;
+					etiquetas[contador].setVisible(true);
+				} else {
+					historiaIntro4.setVisible(false);
+					siguienteButton.setEnabled(false);
+					siguienteButton.setVisible(false);
+					nameLabel.setVisible(true);
+					textFieldName.setVisible(true);
+					reglasLabel.setVisible(true);
+					continuarButton.setVisible(true);
+					continuarButton.setEnabled(true);
+				}
 			}
 		});
 
-		timer.start();
-		timer = new Timer(15000, new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				historiaIntro4.setVisible(true);
-				continuar.setVisible(true);
-			}
-		});
-		timer.start();
-		
-		
-
+		siguienteButton.setFont(new Font("HYWenHei-85W", Font.PLAIN, 18));
+		siguienteButton.setBounds(1361, 869, 236, 50);
+		siguienteButton.setVisible(true);
+		add(siguienteButton);
 
 	}
-
 }
