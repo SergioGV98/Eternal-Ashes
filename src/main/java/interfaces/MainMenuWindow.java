@@ -28,7 +28,7 @@ public class MainMenuWindow extends JPanel {
         backgroundMainMenu.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
-        		window.cambiarPantalla(LoginMenuWindow.class);
+        		window.cambiarPantalla(LoginMenuWindow.class,null);
         	}
         });
 		backgroundMainMenu.setHorizontalTextPosition(SwingConstants.CENTER);

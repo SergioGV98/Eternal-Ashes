@@ -123,10 +123,20 @@ public class IntroWindow extends JPanel {
 				if (Config.verboseMode) {
 					System.out.println(informacion);
 				}
-				String nombre = textFieldName.getText();
 				Arma armaInicial = new Arma((String) informacion.get(0), (int) informacion.get(1));
-				jugador = new Jugador(nombre, (short) 100, armaInicial);
-				window.cambiarPantalla(GameWindow.class);
+				
+				try {
+					String nombre = textFieldName.getText();
+					jugador = new Jugador(nombre, (short) 100, armaInicial);
+					if(Config.verboseMode && jugador != null) {
+						System.out.println(jugador.getNombre() + " | " + jugador.getArma());
+					}
+					window.cambiarPantalla(GameWindow.class,jugador);
+				} catch (NombreConNumeroException | NombreLargoException e1) {
+					JOptionPane.showMessageDialog(window, "Ese nombre no es valido");
+					textFieldName.setText("");
+					e1.printStackTrace();
+				}
 			}
 		});
 		continuarButton.setFont(new Font("HYWenHei-85W", Font.PLAIN, 20));

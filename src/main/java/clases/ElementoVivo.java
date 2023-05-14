@@ -9,6 +9,17 @@ public class ElementoVivo extends ElementoConNombre{
 		this.vida = vida;
 	}
 
-	
+	public short getVida() {
+		return vida;
+	}
+
+	public void setVida(short vida) {
+		this.vida = vida;
+	}
+
+	@Override
+	public String toString() {
+		return "Vida=" + vida ;
+	}
 	
 }

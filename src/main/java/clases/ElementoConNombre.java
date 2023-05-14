@@ -7,7 +7,7 @@ public class ElementoConNombre {
 
 	private String nombre;
 
-	public ElementoConNombre(String nombre) {
+	public ElementoConNombre(String nombre){
 		super();
 		this.nombre = nombre;
 	}
@@ -17,8 +17,7 @@ public class ElementoConNombre {
 	}
 
 	public void setNombre(String nombre) throws NombreConNumeroException, NombreLargoException {
-	String numeros = "1234567890";
-		
+		String numeros = "1234567890";
 		for(byte i = 0; i < nombre.length(); i++) {
 			if(numeros.contains("" + nombre.charAt(i))) {
 				throw new NombreConNumeroException ("El nombre no puede contener numeros");

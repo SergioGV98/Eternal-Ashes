@@ -100,7 +100,7 @@ public class LoginMenuWindow extends JPanel {
 				try {
 					Usuario usuario = new Usuario(textFieldUser.getText(), passwordString);
 					if (usuario != null) {
-						window.cambiarPantalla(IntroWindow.class);
+						window.cambiarPantalla(IntroWindow.class,null);
 					}
 				} catch (SQLException | UsuarioNoExisteExceptions e1) {
 					e1.printStackTrace();
@@ -123,7 +123,7 @@ public class LoginMenuWindow extends JPanel {
 		registButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				window.cambiarPantalla(RegistrarseWindow.class);
+				window.cambiarPantalla(RegistrarseWindow.class,null);
 			}
 		});
 		registButton.setFont(new Font("HYWenHei-85W", Font.BOLD, 20));

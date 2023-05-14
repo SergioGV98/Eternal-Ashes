@@ -115,7 +115,7 @@ public class RegistrarseWindow extends JPanel {
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				window.cambiarPantalla(LoginMenuWindow.class);
+				window.cambiarPantalla(LoginMenuWindow.class,null);
 			}
 		});
 		btnNewButton_1.setFont(new Font("HYWenHei-85W", Font.PLAIN, 20));

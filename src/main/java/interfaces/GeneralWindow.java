@@ -2,6 +2,8 @@ package interfaces;
 
 import javax.swing.JFrame;
 
+import clases.Jugador;
+
 public class GeneralWindow extends JFrame {
 
 	public GeneralWindow() {
@@ -14,7 +16,7 @@ public class GeneralWindow extends JFrame {
 		this.setVisible(true);
 	}
 
-	public void cambiarPantalla(Class<?> clase) {
+	public void cambiarPantalla(Class<?> clase, Jugador jugador) {
 		this.getContentPane().setVisible(false);
 		if (clase.equals(MainMenuWindow.class)) {
 			this.setContentPane(new MainMenuWindow(this));
@@ -25,7 +27,7 @@ public class GeneralWindow extends JFrame {
 		} else if (clase.equals(IntroWindow.class)) {
 			this.setContentPane(new IntroWindow(this));
 		} else if(clase.equals(GameWindow.class)) {
-			this.setContentPane(new GameWindow(this));
+			this.setContentPane(new GameWindow(this,jugador));
 		}
 		this.getContentPane().setVisible(true);
 	}
