@@ -6,17 +6,18 @@ import clases.Jugador;
 
 public class GeneralWindow extends JFrame {
 
+	protected Jugador jugadorPrincipal;
+	
 	public GeneralWindow() {
 		this.setTitle("Eternal Ashes");
 		this.setSize(1650, 1000);
 		this.setContentPane(new MainMenuWindow(this));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setResizable(false);
 		this.setVisible(true);
 	}
 
-	public void cambiarPantalla(Class<?> clase, Jugador jugador) {
+	public void cambiarPantalla(Class<?> clase) {
 		this.getContentPane().setVisible(false);
 		if (clase.equals(MainMenuWindow.class)) {
 			this.setContentPane(new MainMenuWindow(this));
@@ -27,7 +28,7 @@ public class GeneralWindow extends JFrame {
 		} else if (clase.equals(IntroWindow.class)) {
 			this.setContentPane(new IntroWindow(this));
 		} else if(clase.equals(GameWindow.class)) {
-			this.setContentPane(new GameWindow(this,jugador));
+			this.setContentPane(new GameWindow(this));
 		}
 		this.getContentPane().setVisible(true);
 	}
