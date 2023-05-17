@@ -4,6 +4,6 @@ import java.util.ArrayList;
 
 public class Trivial {
 	
-	private ArrayList<Pregunta> pregunta;
+	private ArrayList<Pregunta> preguntas;
 
 }

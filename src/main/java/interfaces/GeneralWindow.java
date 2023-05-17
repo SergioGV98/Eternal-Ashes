@@ -5,15 +5,16 @@ import javax.swing.JFrame;
 import clases.Jugador;
 
 public class GeneralWindow extends JFrame {
-
-	protected Jugador jugadorPrincipal;
 	
+	protected Jugador jugador;
+
 	public GeneralWindow() {
 		this.setTitle("Eternal Ashes");
-		this.setSize(1650, 1000);
+		this.setSize(1300, 700);
 		this.setContentPane(new MainMenuWindow(this));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 		this.setVisible(true);
 	}
 

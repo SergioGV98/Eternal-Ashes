@@ -2,6 +2,7 @@ package clases;
 
 import exceptions.NombreConNumeroException;
 import exceptions.NombreLargoException;
+import exceptions.NombreVacioException;
 
 public class ElementoConNombre {
 
@@ -16,12 +17,16 @@ public class ElementoConNombre {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) throws NombreConNumeroException, NombreLargoException {
+	public void setNombre(String nombre) throws NombreConNumeroException, NombreLargoException, NombreVacioException {
 		String numeros = "1234567890";
 		for(byte i = 0; i < nombre.length(); i++) {
 			if(numeros.contains("" + nombre.charAt(i))) {
 				throw new NombreConNumeroException ("El nombre no puede contener numeros");
 			}
+		}
+		
+		if(nombre.length() == 0) {
+			throw new NombreVacioException("El nombre no puede ser una cadena vacia");
 		}
 		
 		if(nombre.length() > 15) {

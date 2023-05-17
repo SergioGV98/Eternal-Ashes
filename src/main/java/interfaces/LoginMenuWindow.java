@@ -19,10 +19,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.SQLException;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
+import java.time.LocalDateTime;
 
 public class LoginMenuWindow extends JPanel {
 
@@ -31,129 +32,107 @@ public class LoginMenuWindow extends JPanel {
 	private JPasswordField passwordField;
 
 	public LoginMenuWindow(GeneralWindow w) {
-		setPreferredSize(new Dimension(1650, 1000));
+		setSize(new Dimension(1300, 700));
+
 		this.window = w;
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{98, 37, 227, 86, 46, 0, 0, 33, 0, 0};
-		gridBagLayout.rowHeights = new int[]{32, 138, 72, 28, 27, 28, 0, 0, 0, 37, 125, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		setLayout(gridBagLayout);
-								
-										JLabel titleMainMenu = new JLabel("Eternal Ashes");
-										titleMainMenu.setForeground(new Color(255, 255, 255));
-										titleMainMenu.setFont(new Font("HYWenHei-85W", Font.PLAIN, 80));
-										GridBagConstraints gbc_titleMainMenu = new GridBagConstraints();
-										gbc_titleMainMenu.insets = new Insets(0, 0, 5, 5);
-										gbc_titleMainMenu.gridwidth = 5;
-										gbc_titleMainMenu.gridx = 3;
-										gbc_titleMainMenu.gridy = 1;
-										add(titleMainMenu, gbc_titleMainMenu);
-						
-								JLabel usuarioLabel = new JLabel("Usuario");
-								usuarioLabel.setFont(new Font("HYWenHei-85W", Font.PLAIN, 29));
-								GridBagConstraints gbc_usuarioLabel = new GridBagConstraints();
-								gbc_usuarioLabel.anchor = GridBagConstraints.EAST;
-								gbc_usuarioLabel.insets = new Insets(0, 0, 5, 5);
-								gbc_usuarioLabel.gridx = 3;
-								gbc_usuarioLabel.gridy = 3;
-								add(usuarioLabel, gbc_usuarioLabel);
-								
-										textFieldUser = new JTextField();
-										textFieldUser.setFont(new Font("HYWenHei-85W", Font.PLAIN, 18));
-										GridBagConstraints gbc_textFieldUser = new GridBagConstraints();
-										gbc_textFieldUser.fill = GridBagConstraints.HORIZONTAL;
-										gbc_textFieldUser.insets = new Insets(0, 0, 5, 5);
-										gbc_textFieldUser.gridx = 5;
-										gbc_textFieldUser.gridy = 3;
-										add(textFieldUser, gbc_textFieldUser);
-										textFieldUser.setColumns(10);
-						
-								JLabel passwordLabel = new JLabel("Contraseña");
-								passwordLabel.setFont(new Font("HYWenHei-85W", Font.PLAIN, 29));
-								GridBagConstraints gbc_passwordLabel = new GridBagConstraints();
-								gbc_passwordLabel.anchor = GridBagConstraints.EAST;
-								gbc_passwordLabel.insets = new Insets(0, 0, 5, 5);
-								gbc_passwordLabel.gridx = 3;
-								gbc_passwordLabel.gridy = 5;
-								add(passwordLabel, gbc_passwordLabel);
-				
-						passwordField = new JPasswordField();
-						passwordField.setFont(new Font("Arial", Font.PLAIN, 18));
-						GridBagConstraints gbc_passwordField = new GridBagConstraints();
-						gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
-						gbc_passwordField.insets = new Insets(0, 0, 5, 5);
-						gbc_passwordField.gridx = 5;
-						gbc_passwordField.gridy = 5;
-						add(passwordField, gbc_passwordField);
-						
-								JButton registButton = new JButton("Registrarse");
-								registButton.addMouseListener(new MouseAdapter() {
-									@Override
-									public void mouseClicked(MouseEvent e) {
-										window.cambiarPantalla(RegistrarseWindow.class);
-									}
-								});
-								
-								JButton loginButton = new JButton("Entrar");
-								loginButton.addMouseListener(new MouseAdapter() {
-									@Override
-									public void mouseClicked(MouseEvent e) {
-										char[] passwordChars = passwordField.getPassword();
-										String passwordString = new String(passwordChars);
-										try {
-											Usuario usuario = new Usuario(textFieldUser.getText(), passwordString);
-											if (usuario != null) {
-												window.cambiarPantalla(IntroWindow.class);
-											}
-										} catch (SQLException | UsuarioNoExisteExceptions e1) {
-											e1.printStackTrace();
-											JOptionPane.showMessageDialog(window, "Datos introducidos incorrectos");
-										} catch(ContraseñaInvalidaException e2) {
-											e2.printStackTrace();
-											e2.printStackTrace();
-										}
-										textFieldUser.setText("");
-										passwordField.setText("");
-									}
-								});
-								
-										loginButton.setIcon(null);
-										loginButton.setFont(new Font("HYWenHei-85W", Font.BOLD, 20));
-										GridBagConstraints gbc_loginButton = new GridBagConstraints();
-										gbc_loginButton.insets = new Insets(0, 0, 5, 5);
-										gbc_loginButton.gridx = 5;
-										gbc_loginButton.gridy = 7;
-										add(loginButton, gbc_loginButton);
-								registButton.setFont(new Font("HYWenHei-85W", Font.BOLD, 20));
-								GridBagConstraints gbc_registButton = new GridBagConstraints();
-								gbc_registButton.insets = new Insets(0, 0, 5, 5);
-								gbc_registButton.gridx = 5;
-								gbc_registButton.gridy = 8;
-								add(registButton, gbc_registButton);
-						
-								JLabel closeButton = new JLabel("aaa");
-								closeButton.setBackground(new Color(255, 128, 128));
-								closeButton.setIcon(new ImageIcon("images\\botonMainMenuCerrar.png"));
-								closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
-									public void mouseClicked(java.awt.event.MouseEvent evt) {
-										System.exit(0);
-									}
+		setLayout(null);
 
-									public void mouseEntered(java.awt.event.MouseEvent evt) {
-										closeButton.setIcon(new ImageIcon("images\\botonMainMenuCerrarHover.png"));
-									}
+		JLabel titleMainMenu = new JLabel("Eternal Ashes");
+		titleMainMenu.setForeground(new Color(255, 255, 255));
+		titleMainMenu.setFont(new Font("HYWenHei-85W", Font.PLAIN, 80));
+		titleMainMenu.setBounds(406, 29, 638, 138);
+		add(titleMainMenu);
 
-									public void mouseExited(java.awt.event.MouseEvent evt) {
-										closeButton.setIcon(new ImageIcon("images\\botonMainMenuCerrar.png"));
-									}
-								});
-								
-										GridBagConstraints gbc_closeButton = new GridBagConstraints();
-										gbc_closeButton.insets = new Insets(0, 0, 0, 5);
-										gbc_closeButton.gridx = 1;
-										gbc_closeButton.gridy = 11;
-										add(closeButton, gbc_closeButton);
+		JLabel wallpaperLabel = new JLabel("");
+		wallpaperLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+		wallpaperLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		wallpaperLabel.setIcon(new ImageIcon("images\\mainwallpaper.jpg"));
+		wallpaperLabel.setMaximumSize(new Dimension(1650, 1000));
+		wallpaperLabel.setSize(new Dimension(1650, 1000));
+		wallpaperLabel.setBounds(-95, -25, 2110, 1086);
+
+		JLabel closeButton = new JLabel("");
+		closeButton.setBackground(new Color(255, 128, 128));
+		closeButton.setHorizontalAlignment(SwingConstants.CENTER);
+		closeButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		closeButton.setIcon(new ImageIcon("images\\botonMainMenuCerrar.png"));
+		closeButton.setBounds(97, 536, 50, 50);
+		closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				System.exit(0);
+			}
+
+			public void mouseEntered(java.awt.event.MouseEvent evt) {
+				closeButton.setIcon(new ImageIcon("images\\botonMainMenuCerrarHover.png"));
+			}
+
+			public void mouseExited(java.awt.event.MouseEvent evt) {
+				closeButton.setIcon(new ImageIcon("images\\botonMainMenuCerrar.png"));
+			}
+		});
+
+		JLabel usuarioLabel = new JLabel("Usuario");
+		usuarioLabel.setFont(new Font("HYWenHei-85W", Font.PLAIN, 29));
+		usuarioLabel.setBounds(425, 317, 149, 28);
+		add(usuarioLabel);
+
+		JLabel passwordLabel = new JLabel("Contraseña");
+		passwordLabel.setFont(new Font("HYWenHei-85W", Font.PLAIN, 29));
+		passwordLabel.setBounds(406, 412, 168, 28);
+		add(passwordLabel);
+
+		textFieldUser = new JTextField();
+		textFieldUser.setFont(new Font("HYWenHei-85W", Font.PLAIN, 13));
+		textFieldUser.setBounds(610, 317, 275, 28);
+		add(textFieldUser);
+		textFieldUser.setColumns(10);
+
+		passwordField = new JPasswordField();
+		passwordField.setFont(new Font("Arial", Font.PLAIN, 18));
+		passwordField.setBounds(610, 412, 275, 28);
+		add(passwordField);
+		
+		JButton loginButton = new JButton("Entrar");
+		loginButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				char[] passwordChars = passwordField.getPassword();
+				String passwordString = new String(passwordChars);
+				try {
+					Usuario usuario = new Usuario(textFieldUser.getText(), passwordString);
+					if (usuario != null) {
+						window.cambiarPantalla(IntroWindow.class);
+					}
+				} catch (SQLException | UsuarioNoExisteExceptions e1) {
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(window, "Usuario invalido","Usuario invalido",JOptionPane.WARNING_MESSAGE);
+				} catch(ContraseñaInvalidaException e2) {
+					e2.printStackTrace();
+					e2.printStackTrace();
+				}
+				textFieldUser.setText("");
+				passwordField.setText("");
+			}
+		});
+
+		loginButton.setIcon(null);
+		loginButton.setFont(new Font("HYWenHei-85W", Font.BOLD, 20));
+		loginButton.setBounds(710, 499, 234, 50);
+		add(loginButton);
+
+		JButton registButton = new JButton("Registrarse");
+		registButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				window.cambiarPantalla(RegistrarseWindow.class);
+			}
+		});
+		registButton.setFont(new Font("HYWenHei-85W", Font.BOLD, 20));
+		registButton.setBounds(458, 499, 234, 50);
+		add(registButton);
+
+		add(closeButton);
+		add(wallpaperLabel);
 
 	}
 }
