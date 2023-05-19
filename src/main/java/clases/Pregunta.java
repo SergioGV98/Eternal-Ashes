@@ -25,6 +25,10 @@ public class Pregunta {
 
 		if (pregunta.get(1).equals("Anime")) {
 			this.generoPregunta = TipoPregunta.ANIME;
+		} else if (pregunta.get(1).equals("Matemáticas")) {
+			this.generoPregunta = TipoPregunta.MATEMATICAS;
+		} else if (pregunta.get(1).equals("Juegos")) {
+			this.generoPregunta = TipoPregunta.JUEGOS;
 		}
 		this.respuestas.put((String) pregunta.get(2), false);
 		this.respuestas.put((String) pregunta.get(3), false);
@@ -36,24 +40,12 @@ public class Pregunta {
 		return enunciado;
 	}
 
-	public void setEnunciado(String enunciado) {
-		this.enunciado = enunciado;
-	}
-
 	public TipoPregunta getGeneroPregunta() {
 		return generoPregunta;
 	}
 
-	public void setGeneroPregunta(TipoPregunta generoPregunta) {
-		this.generoPregunta = generoPregunta;
-	}
-
 	public HashMap<String, Boolean> getRespuestas() {
 		return respuestas;
-	}
-
-	public void setRespuestas(HashMap<String, Boolean> respuestas) {
-		this.respuestas = respuestas;
 	}
 
 	public ArrayList<Object> obtenerPregunta(TipoPregunta tipo) throws SQLException {
@@ -61,6 +53,10 @@ public class Pregunta {
 		HashMap<String, Object> restricciones = new HashMap<String, Object>();
 		if (tipo == TipoPregunta.ANIME) {
 			restricciones.put("genero", "Anime");
+		} else if (tipo == TipoPregunta.MATEMATICAS) {
+			restricciones.put("genero", "Matemáticas");
+		} else if(tipo == TipoPregunta.MATEMATICAS) {
+			restricciones.put("genero", "Juegos");
 		}
 		LinkedHashSet<String> consulta = new LinkedHashSet<String>();
 		consulta.add("enunciado");
@@ -83,6 +79,11 @@ public class Pregunta {
 		} else {
 			return null; 
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "\nEnunciado=" + enunciado + "\nGeneroPregunta=" + generoPregunta + "\nRespuestas=" + respuestas + "\n";
 	}
 
 }
