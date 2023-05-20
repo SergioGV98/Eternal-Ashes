@@ -2,6 +2,7 @@ package main;
 
 import java.sql.SQLException;
 
+import clases.Enemigo;
 import clases.Pregunta;
 import clases.Trivial;
 import enums.TipoPregunta;
@@ -18,8 +19,15 @@ public class Main {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}*/
+		/*try {
+			Trivial trivial = new Trivial();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		try {
 			Trivial trivial = new Trivial();
+			Enemigo enemigo = new Enemigo("Paco", (short) 100, (short) 5, trivial);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
