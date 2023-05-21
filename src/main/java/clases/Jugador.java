@@ -21,10 +21,22 @@ public class Jugador extends ElementoVivo{
 	public void setArma(Arma arma) {
 		this.arma = arma;
 	}
-
+	
+	public boolean jugadorVivo() {
+		if(this.getVida() > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public void restarVidaJugador(Enemigo enemigo) {
+		this.setVida((short) (this.getVida() - enemigo.getAtaque()));
+	}
+	
 	@Override
 	public String toString() {
 		return "Arma=" + arma;
 	}
-
+	
 }

@@ -1,0 +1,1 @@
+Funciones de restar vida del jugador en la clase jugador y enemigo

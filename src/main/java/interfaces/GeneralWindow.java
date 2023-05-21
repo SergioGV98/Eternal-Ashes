@@ -30,6 +30,8 @@ public class GeneralWindow extends JFrame {
 			this.setContentPane(new IntroWindow(this));
 		} else if(clase.equals(GameWindow.class)) {
 			this.setContentPane(new GameWindow(this));
+		} else if(clase.equals(DebugWindow.class)) {
+			this.setContentPane(new DebugWindow(this));
 		}
 		this.getContentPane().setVisible(true);
 	}
