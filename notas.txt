@@ -1,1 +1,1 @@
-Funciones de restar vida del jugador en la clase jugador y enemigo
+Probar creando un new trivial en la clase enemigo, en vez de otro lado.
