@@ -15,9 +15,10 @@ public class Enemigo extends ElementoVivo {
 	private Trivial trivial;
 	private Botin botin;
 
-	public Enemigo(String nombre, short vida, short ataque, Trivial trivial) throws SQLException {
+	public Enemigo(String nombre, short vida, short ataque) throws SQLException {
 		super(nombre, vida);
 		this.ataque = ataque;
+		this.trivial = new Trivial();
 	}
 	
 	public Enemigo(String nombre, short vida, short ataque, Trivial trivial, Botin botin) throws SQLException {

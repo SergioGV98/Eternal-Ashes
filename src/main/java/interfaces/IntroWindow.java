@@ -132,7 +132,7 @@ public class IntroWindow extends JPanel {
 						System.out.println(window.jugador.getNombre() + " | " + window.jugador.getArma());
 					}
 					//window.cambiarPantalla(GameWindow.class);
-					window.cambiarPantalla(DebugWindow.class);
+					window.cambiarPantalla(TrivialGameWindow.class);
 				} catch (NombreConNumeroException | NombreLargoException | NombreVacioException e1) {
 					JOptionPane.showMessageDialog(window, "Ese nombre no es valido", "Nombre invalido", JOptionPane.ERROR_MESSAGE);
 					textFieldName.setText("");
