@@ -9,8 +9,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -19,7 +17,6 @@ import java.awt.Color;
 import javax.swing.border.SoftBevelBorder;
 
 import clases.Enemigo;
-import clases.Pregunta;
 
 import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
@@ -256,16 +253,10 @@ public class TrivialGameWindow extends JPanel {
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
-				Pregunta pregunta = enemigo.getTrivial().getPreguntas().get(0);
-				ArrayList<String> respuestas = new ArrayList<String>();
-				Iterator<Map.Entry<String, Boolean>> it = pregunta.getRespuestas().entrySet().iterator();
-				while (it.hasNext()) {
-					Map.Entry<String, Boolean> entry = it.next();
-					respuestas.add(entry.getKey());
-					if (entry.getValue()) {
-						respuestaCorrecta = entry.getKey();
-					}
-				}
+				
+				ArrayList<String> respuestas = enemigo.getTrivial().respuestas(enemigo.getTrivial());
+				respuestaCorrecta = enemigo.getTrivial().respuestaCorrecta(enemigo.getTrivial());
+				
 				short cadenaVacio = 0;
 				String enunciado = enemigo.getTrivial().getPreguntas().get(0).getEnunciado();
 				for (short i = (short) (enunciado.length() / 2); i < enunciado.length(); i++) {
