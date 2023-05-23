@@ -34,7 +34,7 @@ public class TrivialGameWindow extends JPanel {
 	private Enemigo enemigo;
 	private String respuestaCorrecta;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-
+	
 	public TrivialGameWindow(GeneralWindow w) {
 		setPreferredSize(new Dimension(1300, 700));
 		this.window = w;
@@ -93,6 +93,33 @@ public class TrivialGameWindow extends JPanel {
 		gbc_jugadorVida.gridy = 1;
 		interfazJugador.add(jugadorVida, gbc_jugadorVida);
 
+		JPanel interfazEnemigo = new JPanel();
+		interfazEnemigo.setBorder(UIManager.getBorder("InternalFrame.border"));
+		GridBagConstraints gbc_interfazEnemigo = new GridBagConstraints();
+		gbc_interfazEnemigo.gridwidth = 12;
+		gbc_interfazEnemigo.insets = new Insets(0, 0, 5, 0);
+		gbc_interfazEnemigo.fill = GridBagConstraints.BOTH;
+		gbc_interfazEnemigo.gridx = 0;
+		gbc_interfazEnemigo.gridy = 5;
+		add(interfazEnemigo, gbc_interfazEnemigo);
+		GridBagLayout gbl_interfazEnemigo = new GridBagLayout();
+		gbl_interfazEnemigo.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_interfazEnemigo.rowHeights = new int[] { 0, 49, 0, 0 };
+		gbl_interfazEnemigo.columnWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				1.0, Double.MIN_VALUE };
+		gbl_interfazEnemigo.rowWeights = new double[] { 1.0, 0.0, 1.0, Double.MIN_VALUE };
+		interfazEnemigo.setLayout(gbl_interfazEnemigo);
+		JLabel enemigoStat = new JLabel("New label");
+		enemigoStat.setFont(new Font("HYWenHei-85W", Font.PLAIN, 20));
+		enemigoStat.setText("");
+		GridBagConstraints gbc_enemigoStat = new GridBagConstraints();
+		gbc_enemigoStat.gridheight = 3;
+		gbc_enemigoStat.gridwidth = 13;
+		gbc_enemigoStat.insets = new Insets(0, 0, 5, 5);
+		gbc_enemigoStat.gridx = 0;
+		gbc_enemigoStat.gridy = 0;
+		interfazEnemigo.add(enemigoStat, gbc_enemigoStat);
+		
 		JPanel interfazGeneral = new JPanel();
 		interfazGeneral.setBorder(new LineBorder(new Color(0, 0, 0), 3));
 		GridBagConstraints gbc_interfazGeneral = new GridBagConstraints();
@@ -153,8 +180,10 @@ public class TrivialGameWindow extends JPanel {
 				respuesta = contestarButton2.getText();
 				if (window.jugador.jugadorVivo() == true || enemigo.enemigovivo() == true) {
 					if (respuesta.equals(respuestaCorrecta)) {
+						System.out.println("Respuesta Correcta" + " enemigo: " + enemigo.getVida());
 						enemigo.restarVidaEnemigo(window.jugador);
 					} else {
+						System.out.println("Respuesta Incorrecta" + " jugador: " + window.jugador.getVida());
 						window.jugador.restarVidaJugador(enemigo);
 					}
 				}
@@ -176,8 +205,10 @@ public class TrivialGameWindow extends JPanel {
 				respuesta = contestarButton3.getText();
 				if (window.jugador.jugadorVivo() == true || enemigo.enemigovivo() == true) {
 					if (respuesta.equals(respuestaCorrecta)) {
+						System.out.println("Respuesta Correcta" + " enemigo: " + enemigo.getVida());
 						enemigo.restarVidaEnemigo(window.jugador);
 					} else {
+						System.out.println("Respuesta Incorrecta" + " jugador: " + window.jugador.getVida());
 						window.jugador.restarVidaJugador(enemigo);
 					}
 				}
@@ -201,8 +232,10 @@ public class TrivialGameWindow extends JPanel {
 				respuesta = contestarButton4.getText();
 				if (window.jugador.jugadorVivo() == true || enemigo.enemigovivo() == true) {
 					if (respuesta.equals(respuestaCorrecta)) {
+						System.out.println("Respuesta Correcta" + " enemigo: " + enemigo.getVida());
 						enemigo.restarVidaEnemigo(window.jugador);
 					} else {
+						System.out.println("Respuesta Incorrecta" + " jugador: " + window.jugador.getVida());
 						window.jugador.restarVidaJugador(enemigo);
 					}
 				}
@@ -214,34 +247,7 @@ public class TrivialGameWindow extends JPanel {
 		gbc_contestarButton4.gridx = 0;
 		gbc_contestarButton4.gridy = 6;
 		interfazGeneral.add(contestarButton4, gbc_contestarButton4);
-
-		JPanel interfazEnemigo = new JPanel();
-		interfazEnemigo.setBorder(UIManager.getBorder("InternalFrame.border"));
-		GridBagConstraints gbc_interfazEnemigo = new GridBagConstraints();
-		gbc_interfazEnemigo.gridwidth = 12;
-		gbc_interfazEnemigo.insets = new Insets(0, 0, 5, 0);
-		gbc_interfazEnemigo.fill = GridBagConstraints.BOTH;
-		gbc_interfazEnemigo.gridx = 0;
-		gbc_interfazEnemigo.gridy = 5;
-		add(interfazEnemigo, gbc_interfazEnemigo);
-		GridBagLayout gbl_interfazEnemigo = new GridBagLayout();
-		gbl_interfazEnemigo.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_interfazEnemigo.rowHeights = new int[] { 0, 49, 0, 0 };
-		gbl_interfazEnemigo.columnWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				1.0, Double.MIN_VALUE };
-		gbl_interfazEnemigo.rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		interfazEnemigo.setLayout(gbl_interfazEnemigo);
-
-		JLabel enemigoStat = new JLabel("New label");
-		enemigoStat.setFont(new Font("HYWenHei-85W", Font.PLAIN, 20));
-		enemigoStat.setText("");
-		GridBagConstraints gbc_enemigoStat = new GridBagConstraints();
-		gbc_enemigoStat.gridwidth = 13;
-		gbc_enemigoStat.insets = new Insets(0, 0, 5, 5);
-		gbc_enemigoStat.gridx = 0;
-		gbc_enemigoStat.gridy = 1;
-		interfazEnemigo.add(enemigoStat, gbc_enemigoStat);
-
+		
 		JButton enemigoRandom = new JButton("Enemigo random");
 		enemigoRandom.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {

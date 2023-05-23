@@ -59,6 +59,27 @@ public class Trivial {
 		return TipoPregunta.values()[indiceAleatorio];
 	}
 	
+	private ArrayList<String> obtenerPreguntasSinRepetir(byte cantidadPreguntas) throws SQLException{
+		ArrayList<String> preguntasRepetidas = new ArrayList<String>();
+		Pregunta nuevaPregunta;
+		for (byte i = 0; i < cantidadPreguntas; i++) {
+			nuevaPregunta = generarPreguntaAleatoria();
+			if (!preguntasRepetidas.contains(nuevaPregunta.getEnunciado())) {
+				preguntas.add(nuevaPregunta);
+				preguntasRepetidas.add(nuevaPregunta.getEnunciado());
+			} else {
+				--i;
+				if (Config.verboseMode) {
+					System.out.println("Pregunta repetida");
+				}
+			}
+			preguntasRepetidas.add(nuevaPregunta.getEnunciado());
+		}
+		if(Config.verboseMode) {
+			System.out.println(preguntas.size());
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return "Trivial [preguntas=" + preguntas;
