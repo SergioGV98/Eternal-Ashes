@@ -53,10 +53,10 @@ public class TrivialGameWindow extends JPanel {
 		gbc_interfazJugador.gridy = 1;
 		add(interfazJugador, gbc_interfazJugador);
 		GridBagLayout gbl_interfazJugador = new GridBagLayout();
-		gbl_interfazJugador.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 147, 0, 0, 0, 0, 0 };
+		gbl_interfazJugador.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 147, 0, 0, 0, 0, 0, 0, 0 };
 		gbl_interfazJugador.rowHeights = new int[] { 0, 0, 0, 0 };
 		gbl_interfazJugador.columnWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 1.0, Double.MIN_VALUE };
+				0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		gbl_interfazJugador.rowWeights = new double[] { 1.0, 0.0, 1.0, Double.MIN_VALUE };
 		interfazJugador.setLayout(gbl_interfazJugador);
 
@@ -80,15 +80,31 @@ public class TrivialGameWindow extends JPanel {
 		gbc_armaActual.gridy = 1;
 		interfazJugador.add(armaActual, gbc_armaActual);
 
-		JLabel jugadorVida = new JLabel("New label");
-		jugadorVida.setText(String.valueOf("Vida: " + window.jugador.getVida() + "/100"));
+		JLabel jugadorVidaText = new JLabel("New label");
+		jugadorVidaText.setText("Vida:");
+		jugadorVidaText.setFont(new Font("HYWenHei-85W", Font.PLAIN, 20));
+		GridBagConstraints gbc_jugadorVidaText = new GridBagConstraints();
+		gbc_jugadorVidaText.gridwidth = 2;
+		gbc_jugadorVidaText.insets = new Insets(0, 0, 5, 5);
+		gbc_jugadorVidaText.gridx = 12;
+		gbc_jugadorVidaText.gridy = 1;
+		interfazJugador.add(jugadorVidaText, gbc_jugadorVidaText);
+		
+		JLabel jugadorVida = new JLabel("0");
 		jugadorVida.setFont(new Font("HYWenHei-85W", Font.PLAIN, 20));
 		GridBagConstraints gbc_jugadorVida = new GridBagConstraints();
-		gbc_jugadorVida.gridwidth = 2;
 		gbc_jugadorVida.insets = new Insets(0, 0, 5, 5);
-		gbc_jugadorVida.gridx = 12;
+		gbc_jugadorVida.gridx = 14;
 		gbc_jugadorVida.gridy = 1;
 		interfazJugador.add(jugadorVida, gbc_jugadorVida);
+		
+		JLabel jugadorVidaMaxima = new JLabel("/100");
+		jugadorVidaMaxima.setFont(new Font("HYWenHei-85W", Font.PLAIN, 20));
+		GridBagConstraints gbc_jugadorVidaMaxima = new GridBagConstraints();
+		gbc_jugadorVidaMaxima.insets = new Insets(0, 0, 5, 5);
+		gbc_jugadorVidaMaxima.gridx = 15;
+		gbc_jugadorVidaMaxima.gridy = 1;
+		interfazJugador.add(jugadorVidaMaxima, gbc_jugadorVidaMaxima);
 
 		JPanel interfazEnemigo = new JPanel();
 		interfazEnemigo.setBorder(UIManager.getBorder("InternalFrame.border"));
@@ -106,16 +122,54 @@ public class TrivialGameWindow extends JPanel {
 				1.0, Double.MIN_VALUE };
 		gbl_interfazEnemigo.rowWeights = new double[] { 1.0, 0.0, 1.0, Double.MIN_VALUE };
 		interfazEnemigo.setLayout(gbl_interfazEnemigo);
-		JLabel enemigoStat = new JLabel("New label");
-		enemigoStat.setFont(new Font("HYWenHei-85W", Font.PLAIN, 20));
-		enemigoStat.setText("");
-		GridBagConstraints gbc_enemigoStat = new GridBagConstraints();
-		gbc_enemigoStat.gridheight = 3;
-		gbc_enemigoStat.gridwidth = 13;
-		gbc_enemigoStat.insets = new Insets(0, 0, 5, 5);
-		gbc_enemigoStat.gridx = 0;
-		gbc_enemigoStat.gridy = 0;
-		interfazEnemigo.add(enemigoStat, gbc_enemigoStat);
+		
+		JLabel enemigoName = new JLabel("<dynamic> | ");
+		enemigoName.setFont(new Font("HYWenHei-85W", Font.PLAIN, 20));
+		GridBagConstraints gbc_enemigoName = new GridBagConstraints();
+		gbc_enemigoName.insets = new Insets(0, 0, 5, 5);
+		gbc_enemigoName.gridx = 1;
+		gbc_enemigoName.gridy = 1;
+		interfazEnemigo.add(enemigoName, gbc_enemigoName);
+		
+		JLabel enemigoDañoText = new JLabel("Daño: ");
+		enemigoDañoText.setFont(new Font("HYWenHei-85W", Font.PLAIN, 20));
+		GridBagConstraints gbc_enemigoDañoText = new GridBagConstraints();
+		gbc_enemigoDañoText.insets = new Insets(0, 0, 5, 5);
+		gbc_enemigoDañoText.gridx = 3;
+		gbc_enemigoDañoText.gridy = 1;
+		interfazEnemigo.add(enemigoDañoText, gbc_enemigoDañoText);
+		
+		JLabel enemigoDaño = new JLabel("");
+		enemigoDaño.setFont(new Font("HYWenHei-85W", Font.PLAIN, 20));
+		GridBagConstraints gbc_enemigoDaño = new GridBagConstraints();
+		gbc_enemigoDaño.insets = new Insets(0, 0, 5, 5);
+		gbc_enemigoDaño.gridx = 4;
+		gbc_enemigoDaño.gridy = 1;
+		interfazEnemigo.add(enemigoDaño, gbc_enemigoDaño);
+		
+		JLabel enemigoVidaText = new JLabel("Vida:");
+		enemigoVidaText.setFont(new Font("HYWenHei-85W", Font.PLAIN, 20));
+		GridBagConstraints gbc_enemigoVidaText = new GridBagConstraints();
+		gbc_enemigoVidaText.insets = new Insets(0, 0, 5, 5);
+		gbc_enemigoVidaText.gridx = 5;
+		gbc_enemigoVidaText.gridy = 1;
+		interfazEnemigo.add(enemigoVidaText, gbc_enemigoVidaText);
+		
+		JLabel enemigoVida = new JLabel("0");
+		enemigoVida.setFont(new Font("HYWenHei-85W", Font.PLAIN, 20));
+		GridBagConstraints gbc_enemigoVida = new GridBagConstraints();
+		gbc_enemigoVida.insets = new Insets(0, 0, 5, 5);
+		gbc_enemigoVida.gridx = 6;
+		gbc_enemigoVida.gridy = 1;
+		interfazEnemigo.add(enemigoVida, gbc_enemigoVida);
+		
+		JLabel enemigoVidaMaxima = new JLabel("/100");
+		enemigoVidaMaxima.setFont(new Font("HYWenHei-85W", Font.PLAIN, 20));
+		GridBagConstraints gbc_enemigoVidaMaxima = new GridBagConstraints();
+		gbc_enemigoVidaMaxima.insets = new Insets(0, 0, 5, 5);
+		gbc_enemigoVidaMaxima.gridx = 7;
+		gbc_enemigoVidaMaxima.gridy = 1;
+		interfazEnemigo.add(enemigoVidaMaxima, gbc_enemigoVidaMaxima);
 		
 		JPanel interfazGeneral = new JPanel();
 		interfazGeneral.setBorder(new LineBorder(new Color(0, 0, 0), 3));
@@ -154,9 +208,12 @@ public class TrivialGameWindow extends JPanel {
 					if (respuesta.equals(respuestaCorrecta)) {
 						System.out.println("Respuesta Correcta" + " enemigo: " + enemigo.getVida());
 						enemigo.restarVidaEnemigo(window.jugador);
+						enemigoVida.setText("" + enemigo.getVida());
+						
 					} else {
 						System.out.println("Respuesta Incorrecta" + " jugador: " + window.jugador.getVida());
 						window.jugador.restarVidaJugador(enemigo);
+						jugadorVida.setText("" + window.jugador.getVida());
 					}
 				}
 			}
@@ -179,9 +236,11 @@ public class TrivialGameWindow extends JPanel {
 					if (respuesta.equals(respuestaCorrecta)) {
 						System.out.println("Respuesta Correcta" + " enemigo: " + enemigo.getVida());
 						enemigo.restarVidaEnemigo(window.jugador);
+						enemigoVida.setText("" + enemigo.getVida());
 					} else {
 						System.out.println("Respuesta Incorrecta" + " jugador: " + window.jugador.getVida());
 						window.jugador.restarVidaJugador(enemigo);
+						jugadorVida.setText("" + window.jugador.getVida());
 					}
 				}
 			}
@@ -204,9 +263,11 @@ public class TrivialGameWindow extends JPanel {
 					if (respuesta.equals(respuestaCorrecta)) {
 						System.out.println("Respuesta Correcta" + " enemigo: " + enemigo.getVida());
 						enemigo.restarVidaEnemigo(window.jugador);
+						enemigoVida.setText("" + enemigo.getVida());
 					} else {
 						System.out.println("Respuesta Incorrecta" + " jugador: " + window.jugador.getVida());
 						window.jugador.restarVidaJugador(enemigo);
+						jugadorVida.setText("" + window.jugador.getVida());
 					}
 				}
 			}
@@ -231,9 +292,11 @@ public class TrivialGameWindow extends JPanel {
 					if (respuesta.equals(respuestaCorrecta)) {
 						System.out.println("Respuesta Correcta" + " enemigo: " + enemigo.getVida());
 						enemigo.restarVidaEnemigo(window.jugador);
+						enemigoVida.setText("" + enemigo.getVida());
 					} else {
 						System.out.println("Respuesta Incorrecta" + " jugador: " + window.jugador.getVida());
 						window.jugador.restarVidaJugador(enemigo);
+						jugadorVida.setText("" + window.jugador.getVida());
 					}
 				}
 			}
@@ -256,7 +319,9 @@ public class TrivialGameWindow extends JPanel {
 				
 				ArrayList<String> respuestas = enemigo.getTrivial().respuestas(enemigo.getTrivial());
 				respuestaCorrecta = enemigo.getTrivial().respuestaCorrecta(enemigo.getTrivial());
-				
+				enemigoDaño.setText("" + enemigo.getAtaque() + " | ");
+				enemigoName.setText(enemigo.getNombre() + " | ");
+				enemigoVida.setText("" + enemigo.getVida());
 				short cadenaVacio = 0;
 				String enunciado = enemigo.getTrivial().getPreguntas().get(0).getEnunciado();
 				for (short i = (short) (enunciado.length() / 2); i < enunciado.length(); i++) {
@@ -265,9 +330,6 @@ public class TrivialGameWindow extends JPanel {
 						break;
 					}
 				}
-				enemigoStat.setText(
-						enemigo.getNombre() + " | Daño: " + enemigo.getAtaque() + " | Vida: " + enemigo.getVida());
-
 				String enunciado1 = enunciado.substring(0, cadenaVacio);
 				String enunciado2 = enunciado.substring(cadenaVacio, enunciado.length());
 				enunciado = "<html>" + enunciado1 + "<br>" + enunciado2 + "</html>";
@@ -284,6 +346,37 @@ public class TrivialGameWindow extends JPanel {
 		gbc_enemigoRandom.gridx = 0;
 		gbc_enemigoRandom.gridy = 6;
 		add(enemigoRandom, gbc_enemigoRandom);
+		
 	}
+	
+	/*public void invocarEnemigo(String nombre, Short vida, Short daño) {
+		try {
+			enemigo = new Enemigo(nombre, vida, daño);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+		ArrayList<String> respuestas = enemigo.getTrivial().respuestas(enemigo.getTrivial());
+		respuestaCorrecta = enemigo.getTrivial().respuestaCorrecta(enemigo.getTrivial());
+		
+		short cadenaVacio = 0;
+		String enunciado = enemigo.getTrivial().getPreguntas().get(0).getEnunciado();
+		for (short i = (short) (enunciado.length() / 2); i < enunciado.length(); i++) {
+			if (enunciado.charAt(i) == ' ') {
+				cadenaVacio = i;
+				break;
+			}
+		}
+		enemigoStat.setText(enemigo.getNombre() + " | Daño: " + enemigo.getAtaque() + " | Vida: " + enemigo.getVida());
+
+		String enunciado1 = enunciado.substring(0, cadenaVacio);
+		String enunciado2 = enunciado.substring(cadenaVacio, enunciado.length());
+		enunciado = "<html>" + enunciado1 + "<br>" + enunciado2 + "</html>";
+		enunciadoTitle.setText(enunciado);
+		contestarButton1.setText(respuestas.get(0));
+		contestarButton2.setText(respuestas.get(1));
+		contestarButton3.setText(respuestas.get(2));
+		contestarButton4.setText(respuestas.get(3));
+	}*/
 	
 }
