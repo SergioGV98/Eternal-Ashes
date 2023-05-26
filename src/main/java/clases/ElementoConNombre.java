@@ -12,7 +12,7 @@ public class ElementoConNombre {
 		super();
 		this.nombre = nombre;
 	}
-
+	
 	public String getNombre() {
 		return nombre;
 	}
